@@ -1,0 +1,823 @@
+<MyPopup@Popup>:
+    auto_dismiss: False
+    Button:
+        text: 'Close me!'
+        on_release: root.dismiss()
+
+<Kost@ImageButton>:
+    source:  "Image/kost.png"
+    size_hint: 0.15, 0.1
+    allow_stretch: True
+    keep_ratio: False
+
+<ImageContext@Image>:
+    size_hint: 1.2, 1.2
+    pos_hint: {'x': -0.1, 'y': -0.1}
+    allow_stretch: True #image in fullscreen
+    keep_ratio: False
+
+<ButtonAnswer@Button>:
+    font_size: 20
+    background_normal: ''
+    background_color: 1, .80, .4, .85
+    color: 0,0,0,.7
+
+<ButtonMain@ImageButton>:
+    size_hint: 0.25, 0.1
+    allow_stretch: True #image full the button
+    keep_ratio: False #image full the button
+
+<ButtonAnswerP@ImageButton>:
+    size_hint: 0.2, 1
+    allow_stretch: True #image full the button
+    keep_ratio: False #image full the button
+
+<ButtonIcon@ImageButton>:
+    size_hint: 0.1, 0.1
+    allow_stretch: True #image full the button
+    keep_ratio: False #image full the button
+
+<ButtonUrok@Button>:
+    font_size: 20
+    background_normal: ''
+    background_color: 1, .80, .4, .85
+    color: 0,0,0,.7
+
+<LabelUp@Label>
+    canvas.before:
+        Color:
+            rgba: 255,205,0,255
+        Rectangle:
+            pos: self.pos
+            size: self.size
+  #  canvas:
+  #      Color:
+  #          rgba: 0, 0, 0, 1
+  #      Line:
+  #          width: 0.3
+  #          rectangle: self.x, self.y, self.width, self.height
+
+    color: 1, 0, 1, 1
+    size_hint: 0.2, 0.07
+
+<Flashcards>:
+    canvas:
+        Color:
+            rgba: 0,255,222,255
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label:
+        markup: True
+        id: lb
+        font_size: 30
+        color: 1,0.4,0.5,1
+        size_hint: 0.3, 0.1
+        pos_hint: {'x': 0,'y': 0.9}
+    LabelUp:
+        id: make
+        pos_hint: {'x': 0.5,'y': 0.905}
+
+    ProgressBar:
+        id: makeb
+        pos_hint: {'x': 0.5,'y': 0.89}
+        size_hint: 0.2, 0.05
+
+    LabelUp:
+        id: right
+        pos_hint: {'x': 0.75,'y': 0.905}
+
+    ProgressBar:
+        id: rightb
+        pos_hint: {'x': 0.75,'y': 0.89}
+        size_hint: 0.2, 0.05
+
+
+    Label:
+        id: sk
+        color: 0, 0, 0, 1
+        size_hint: 0.2, 0.05
+        pos_hint: {'x': 0.02,'y': 0.8}
+        halign: 'left'
+        font_size: 20
+
+    TextInput:
+        id: z
+        pos_hint: {'x': 0.02,'y': 0.73}
+        size_hint: 0.2, 0.07
+        multiline: False
+        focus: True
+        font_size: 20
+        text: '1'
+        halign: 'center'
+
+    Label:
+        id: odnl
+        color: 0, 0, 0, 1
+        size_hint: 0.2, 0.05
+        pos_hint: {'x': 0.05,'y': 0.6}
+        halign: 'left'
+        font_size: 18
+
+    ToggleButton:
+        id: odn
+        group: 'kolvo'
+        state: 'down'
+        size_hint: 0.02, 0.02
+        pos_hint: {'x': 0.02,'y': 0.62}
+
+    Label:
+        id: dvzl
+        color: 0, 0, 0, 1
+        size_hint: 0.2, 0.05
+        pos_hint: {'x': 0.05,'y': 0.5}
+        halign: 'left'
+        font_size: 18
+
+    ToggleButton:
+        id: dvz
+        group: 'kolvo'
+        size_hint: 0.02, 0.02
+        pos_hint: {'x': 0.02,'y': 0.52}
+
+    Button:
+        id: begin
+        pos_hint: {'x': 0.02,'y': 0.40}
+        size_hint: 0.2, 0.07
+        on_press: root.begin_card()
+
+    Image:
+        id: cr
+        allow_stretch: True
+        keep_ratio: False
+        pos_hint: {'x': 0.47,'y': 0.25}
+        opacity: 0
+        size_hint: 0.3, 0.5
+
+    Label:
+        id: answer
+        color: 0, 0, 0, 1
+        size_hint: 0.2, 0.2
+        pos_hint: {'x': 0.5,'y': 0.7}
+        font_size: 60
+
+    TextInput:
+        id: my_answer
+        multiline: False
+        focus: True
+        font_size: 60
+        text: ''
+        halign: 'center'
+        size_hint: 0.3, 0.15
+        pos_hint: {'x': 0.45,'y': 0.05}
+        opacity: 0
+
+    Button:
+        id: vp
+        opacity: 0
+
+        size_hint: 0.15, 0.15
+        pos_hint: {'x': 0.75,'y': 0.05}
+        on_press:
+            root.prov()
+        Image:
+            id: vpi
+            source: "Image/R.png"
+            size_hint: 0.12, 0.1
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+
+    ButtonIcon:
+        id: bn_back
+        source:  "Image/ic_arrow_back.png"
+        size_hint_x : 0.06
+        size_hint_y : 0.05
+        pos_hint: {'x': 0., 'y': 0.}
+        on_press:
+            root.manager.transition.direction = 'right'
+            root.manager.current = 'mainscreen'
+
+<Prodol>
+    auto_dismiss: False
+    size_hint: None, None
+    size: 400,200
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: rez
+        BoxLayout:
+            orientation: 'horizontal'
+            Button:
+                id: bk
+                on_release: root.vih()
+            Button:
+                id: pr
+                on_release: root.reshat()
+
+
+
+
+
+Button:
+    text: 'Open popup'
+    on_release: Factory.MyPopup().open()
+
+<First>:
+    FloatLayout:
+        Image:
+            source: "Image/Main.jpg"
+            size_hint: 1.2, 1.2
+            pos_hint: {'x': -0.1, 'y': -0.1}
+            allow_stretch: True #image in fullscreen
+            keep_ratio: False
+        ButtonMain:
+            id: button_input
+            source: "Image/Button1.png"
+            pos_hint: {'x': 0.38, 'y': 0.68}
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'login'
+        ButtonMain:
+            id: Register
+            source: "Image/Button2.png"
+            pos_hint: {'x': 0.38, 'y': 0.48}
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'registration'
+        ButtonMain:
+            id: Quit
+            source: "Image/Button3.png"
+            pos_hint: {'x': 0.38, 'y': 0.28}
+            on_press: root.dismiss()
+
+<Registration>:
+    FloatLayout:
+        Image:
+            source: "Image/Registr.jpg"
+            size_hint: 1.2, 1.2
+            pos_hint: {'x': -0.1, 'y': -0.1}
+            allow_stretch: True #image in fullscreen
+            keep_ratio: False
+        BoxLayout
+            id: Registration_layout
+            orientation: 'vertical'
+            padding: [10,50,10,50]
+            spacing: 50
+
+            Label:
+                id: registration
+                font_name : 'Font/Zagolovki.otf'
+                font_size: 60
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                Label:
+                    id: login_label
+                    #text: 'Login'
+                    font_size: 18
+                    pos_hint: {'x': 0.3, 'y': 0.7}
+                    halign: 'left'
+                    text_size: root.width-20, 20
+
+                TextInput:
+                    id: login
+                    size_hint: 0.4, 1.5
+                    pos_hint: {'x': 0.3, 'y': 0.78}
+                    multiline:False
+                    font_size: 18
+
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: password_label
+                    #text: 'Password'
+                    halign: 'left'
+                    pos_hint: {'x': 0.3, 'y': 0.5}
+                    font_size: 18
+                    text_size: root.width-20, 20
+
+                TextInput:
+                    id: password
+                    size_hint: 0.4, 1.5
+                    pos_hint: {'x': 0.3, 'y': 0.58}
+                    multiline:False
+                    password:True
+                    font_size: 28
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                Label:
+                    id: password_repeat
+                    #text: 'Repeat password'
+                    font_size: 18
+                    pos_hint: {'x': 0.3, 'y': 0.3}
+                    halign: 'left'
+                    text_size: root.width-20, 20
+
+                TextInput:
+                    id: password_rep
+                    size_hint: 0.4, 1.5
+                    pos_hint: {'x': 0.3, 'y': 0.38}
+                    multiline:False
+                    password:True
+                    font_size: 18
+
+
+            Button:
+                id: registration_button
+                #text: 'Registration'
+                font_size: 24
+                size_hint: 0.4, 1
+                pos_hint: {'x': 0.3, 'y': 0.28}
+                background_normal: ''
+                background_color: 1, .80, .4, .85
+                color: 0,0,0,.7
+                on_press: root.insert_user(login.text, password.text, password_rep.text)
+
+<Login>:
+    FloatLayout:
+        Image:
+            source: "Image/Registr.jpg"
+            size_hint: 1.2, 1.2
+            pos_hint: {'x': -0.1, 'y': -0.1}
+            allow_stretch: True #image in fullscreen
+            keep_ratio: False
+        BoxLayout
+            id: login_layout
+            orientation: 'vertical'
+            padding: [10,50,10,50]
+            spacing: 50
+
+            Label:
+                id: welcome
+                font_name : 'Font/Zagolovki.otf'
+                font_size: 60
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                Label:
+                    id: login_name
+                    #text: 'Login'
+                    font_size: 21
+                    pos_hint: {'x': 0.3, 'y': 0.9}
+                    halign: 'left'
+                    text_size: root.width-20, 20
+
+                TextInput:
+                    id: login
+                    multiline:False
+                    font_size: 23
+                    size_hint: 0.4, 0.9
+                    pos_hint: {'x': 0.3, 'y': 0.98}
+
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: login_password
+                    #text: 'Password'
+                    halign: 'left'
+                    font_size: 21
+                    pos_hint: {'x': 0.3, 'y': 0.5}
+                    text_size: root.width-20, 20
+
+                TextInput:
+                    id: password
+                    multiline:False
+                    password:True
+                    size_hint: 0.4, 0.9
+                    pos_hint: {'x': 0.3, 'y': 0.58}
+                    font_size: 23
+
+            Button:
+                id: connection
+                font_size: 24
+                size_hint: 0.4, 0.7
+                pos_hint: {'x': 0.3, 'y': 0.38}
+                background_normal: ''
+                background_color: 1, .80, .4, .85
+                color: 0,0,0,.7
+                on_press: root.do_login(login.text, password.text)
+
+
+
+<MainScreen>:
+    FloatLayout:
+        ImageContext:
+            source: "Image/MainScreen.jpg"
+
+
+        BoxLayout:
+            id: main
+            orientation: 'horizontal'
+            padding: [10,-50,10,10]
+            spacing: 20
+            BoxLayout:
+                id: main_urok
+                orientation: 'vertical'
+                padding: [10,0,10,10]
+                spacing: 50
+                BoxLayout:
+                    id: main
+                    orientation: 'vertical'
+                    padding: [10,0,10,10]
+                    spacing: 5
+                    Label:
+                        id: uroki
+                        markup: True
+                        font_name : 'Font/Zagolovki.otf'
+                        font_size: 80
+                    Button:
+                        id: btvvod
+                        font_size: 24
+                        size_hint: 1, 0.3
+                        pos_hint: {'x': 0, 'y': 0.9}
+                        background_normal: ''
+                        background_color: 1, .80, .4, .85
+                        color: 0,0,0,.7
+                        on_press:
+                            root.manager.transition.direction = 'left'
+                            root.manager.current = 'introductory_lesson'
+                GridLayout:
+                    rows: 4
+                    cols: 3
+                    padding: [10,0,10,10]
+                    spacing: 15
+                    ButtonUrok:
+                        id: urok1
+                        on_press:
+                            root.manager.transition.direction = 'left'
+                            root.manager.current = 'lesson_one'
+                    ButtonUrok:
+                        id: urok2
+                        on_press:
+                            root.manager.transition.direction = 'left'
+                            root.manager.current = 'soroban'
+                    ButtonUrok:
+                        id: urok3
+                    ButtonUrok:
+                        id: urok4
+                    ButtonUrok:
+                        id: urok5
+                    ButtonUrok:
+                        id: urok6
+                    ButtonUrok:
+                        id: urok7
+                    ButtonUrok:
+                        id: urok8
+                    ButtonUrok:
+                        id: urok9
+                    ButtonUrok:
+                        id: urok10
+                    ButtonUrok:
+                        id: urok11
+                    ButtonUrok:
+                        id: urok12
+
+
+            BoxLayout:
+                id: main_trenajor
+                orientation: 'vertical'
+                padding: [10,0,10,50]
+                spacing: 50
+                Label:
+                    id: trenajor
+                    markup: True
+                    pos_hint: {'x': 0.01, 'y': 0.1}
+                    font_name : 'Font/Zagolovki.otf'
+                    font_size: 80
+                Button:
+                    id: tren_stolb
+                    font_size: 24
+                    size_hint: 1, 0.3
+                    pos_hint: {'x': 0, 'y': 0.9}
+                    background_normal: ''
+                    background_color: 1, .80, .4, .85
+                    color: 0,0,0,.7
+                    #on_press: root.manager.current = 'introductory_lesson'
+                Button:
+                    id: tren_flesh
+                    font_size: 24
+                    size_hint: 1, 0.3
+                    pos_hint: {'x': 0, 'y': 0.9}
+                    background_normal: ''
+                    background_color: 1, .80, .4, .85
+                    color: 0,0,0,.7
+                    on_press:
+                        root.manager.transition.direction = 'left'
+                        root.manager.current = 'flashcards'
+                Button:
+                    id: tren_audio
+                    font_size: 24
+                    size_hint: 1, 0.3
+                    pos_hint: {'x': 0, 'y': 0.9}
+                    background_normal: ''
+                    background_color: 1, .80, .4, .85
+                    color: 0,0,0,.7
+                    #on_press: root.manager.current = 'introductory_lesson'
+
+    ButtonIcon:
+        id: bn
+        source:  "Image/ic-dropdown.png"
+        size_hint_x : 0.05
+        size_hint_y : 0.02
+        pos_hint: {'x': 0.95, 'y': 0.96}
+
+
+    Image:
+        source:  "Image/avatar.png"
+        size_hint_x : 0.07
+        size_hint_y : 0.04
+        pos_hint: {'x': 0.65, 'y': 0.95}
+
+    Label:
+        id: user_name
+        pos_hint: {'x': 0.33, 'y': 0.47}
+        background_normal: ''
+        background_color: 1, .80, .4, .85
+        color: 0,0,0,.7
+        font_size: 23
+
+    #ButtonIcon:
+     #   id: button_sound
+      #  source: "Image/exit.png"
+       # pos_hint: {'x': 0.85, 'y': 0.89}
+        #on_press: root.manager.current = 'first'
+
+<Soroban>:
+
+    ButtonIcon:
+        id: bn_back
+        source:  "Image/ic_arrow_back.png"
+        size_hint_x : 0.06
+        size_hint_y : 0.05
+        pos_hint: {'x': 0., 'y': 0.}
+        on_press:
+            root.manager.transition.direction = 'right'
+            root.manager.current = 'mainscreen'
+
+
+    FloatLayout:
+        Image:
+            source: "Image/VvodUrok.png"
+            allow_stretch: True
+            keep_ratio: False
+        Image:
+            source: "Image/line.png"
+            size_hint: 0.25, 0.3
+            pos_hint: {'x': .35, 'y': 0.54}
+        Label:
+            id: lb
+            font_size: 200
+            text: '0'
+            color: 1,1,0,1
+            pos_hint: {'x': -0.35,'y': 0.1}
+        TextInput:
+            id: txt
+            multiline: False
+            focus: True
+            font_size: 130
+            text: ''
+            size_hint: 0.15, 0.25
+            pos_hint: {'x': 0.7,'y': 0.5}
+            on_text_validate: root.number()
+        Kost:
+            id: k5
+            pos_hint: {'x': .4, 'y': 0.8}
+            on_press: root.fun5()
+        Kost:
+            id: k6
+            pos_hint: {'x': .4, 'y': 0.7}
+            size_hint: 0, 0
+            on_press: root.fun6()
+        Kost:
+            id: k7
+            pos_hint: {'x': .4, 'y': 0.58}
+            size_hint: 0, 0
+            on_press: root.fun7()
+        Kost:
+            id: k1
+            pos_hint: {'x': .4, 'y': 0.48}
+            on_press: root.fun1()
+        Kost:
+            id: k2
+            pos_hint: {'x': .4, 'y': 0.38}
+            on_press: root.fun2()
+        Kost:
+            id: k3
+            pos_hint: {'x': .4, 'y': 0.28}
+            on_press: root.fun3()
+        Kost:
+            id: k4
+            pos_hint: {'x': .4, 'y': 0.18}
+            on_press: root.fun4()
+
+<Lesson_one_4>:
+    FloatLayout:
+        ImageContext:
+            source: "Image/VvodUrok.png"
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [10,0,10,50]
+            spacing: 50
+            TextInput:
+                id: my_answer
+                multiline: False
+                focus: True
+                font_size: 60
+                text: ''
+                halign: 'center'
+                size_hint: 0.3, 0.15
+                pos_hint: {'x': 0.45,'y': 0.05}
+                opacity: 0
+
+
+<lesson_one>
+
+    ButtonIcon:
+        id: bn_back
+        source:  "Image/ic_arrow_back.png"
+        size_hint_x : 0.06
+        size_hint_y : 0.05
+        pos_hint: {'x': 0., 'y': 0.}
+        on_press:
+            root.manager.transition.direction = 'right'
+            root.manager.current = 'mainscreen'
+
+    FloatLayout:
+        Image:
+            source: "Image/VvodUrok.png"
+            size_hint: 1.2, 1.2
+            pos_hint: {'x': -0.1, 'y': -0.1}
+            allow_stretch: True #image in fullscreen
+            keep_ratio: False
+    Screen:
+        id: screen_1
+        name: 'Screen one'  # имя экрана
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [10,0,10,50]
+            spacing: 50
+            Label:
+                id: ques1
+                markup: True
+                pos_hint: {'x': 0.01, 'y': 0.45}
+                font_size: 40
+            BoxLayout:
+                orientation: 'horizontal'
+                padding: [10,0,10,50]
+                spacing: 50
+                ButtonAnswer:
+                    id: answer1
+                    text: '6'
+                    on_press: root.answer1_pressed()
+
+                ButtonAnswer:
+                    id: answer2
+                    text: '2'
+                    on_press: root.answer2_pressed()
+
+                ButtonAnswer:
+                    id: answer3
+                    text: '5'
+                    on_press: root.answer3_pressed()
+
+                ButtonAnswer:
+                    id: answer4
+                    text: '1'
+                    on_press: root.answer4_pressed()
+
+            Button:
+                id: propusk1
+                size_hint: 1, 0.3
+                on_press: root.propusk()
+
+    Screen:
+        id: screen_2
+        name: 'Screen two'
+        opacity: 0
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [10,0,10,50]
+            spacing: 50
+            Label:
+                id: ques2
+                markup: True
+                pos_hint: {'x': 0.01, 'y': 0.45}
+                font_size: 40
+            BoxLayout:
+                orientation: 'horizontal'
+                padding: [10,0,10,50]
+                spacing: 50
+                ButtonAnswer:
+                    id: answer1
+                    text: '6'
+                    on_press: root.answer1_pressed()
+
+                ButtonAnswer:
+                    id: answer2
+                    text: '2'
+                    on_press: root.answer2_pressed()
+
+                ButtonAnswer:
+                    id: answer3
+                    text: '5'
+                    on_press: root.answer3_pressed()
+
+                ButtonAnswer:
+                    id: answer4
+                    text: '1'
+                    on_press: root.answer4_pressed()
+
+            Button:
+                id: propusk2
+                size_hint: 1, 0.3
+                on_press: root.propusk()
+    Screen:
+        id: screen_3
+        name: 'Screen three'
+        opacity: 0
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [10,0,10,50]
+            spacing: 50
+            Label:
+                id: ques3
+                markup: True
+                pos_hint: {'x': 0.01, 'y': 0.45}
+                font_size: 27
+            BoxLayout:
+                orientation: 'horizontal'
+                padding: [10,0,10,50]
+                spacing: 50
+                ButtonAnswerP:
+                    source: "Image/3.jpg"
+                    on_press: root.answer1_pressed()
+                ButtonAnswerP:
+                    source: "Image/7.jpg"
+                    on_press: root.answer2_pressed()
+                ButtonAnswerP:
+                    source: "Image/6.jpg"
+                    on_press: root.answer3_pressed()
+                ButtonAnswerP:
+                    source: "Image/8.jpg"
+                    on_press: root.answer4_pressed()
+            Button:
+                id: propusk3
+                size_hint: 1, 0.3
+                on_press: root.propusk()
+
+<Introductory_lesson>:
+
+    ButtonIcon:
+        id: bn_back
+        source:  "Image/ic_arrow_back.png"
+        size_hint_x : 0.06
+        size_hint_y : 0.05
+        pos_hint: {'x': 0., 'y': 0.}
+        on_press:
+            root.manager.transition.direction = 'right'
+            root.manager.current = 'mainscreen'
+
+    FloatLayout:
+        Image:
+            source: "Image/VvodUrok.png"
+            size_hint: 1.2, 1.2
+            pos_hint: {'x': -0.1, 'y': -0.1}
+            allow_stretch: True #image in fullscreen
+            keep_ratio: False
+    FloatLayout:
+        Label:
+            id: btvvod
+            markup: True
+            pos_hint: {'x': 0.01, 'y': 0.45}
+            font_size: 55
+            on_ref_press: root.manager.current = 'first'
+        Label:
+            id: textvvod
+            text_size: self.size
+            pos_hint: {'x': 0.01, 'y': 0.2}
+            halign: 'center'
+            valign: 'middle'
+        Image:
+            source: "Image/Soroban.jpg"
+            size_hint: 0.5, 0.9
+            pos_hint: {'x': 0.3, 'y': -0.2}
+    ButtonIcon:
+        id: button_sound
+        source: "Image/Speaker_icon.png"
+        pos_hint: {'x': 0.85, 'y': 0.89}
+        on_press: root.btn_pressed()
+
+<CustomDropDown>:
+    Button:
+        id: exit
+        size_hint_y: None
+        height: 30
+        font_size: 12
+        on_release: root.select('College is')
+        #on_press: root.exit_func()
+
