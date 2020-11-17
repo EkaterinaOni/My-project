@@ -1,37 +1,36 @@
 # -*- coding: utf-8 -*-#
-from kivy.app import App
-from kivy.properties import StringProperty
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
-from kivy.uix.popup import Popup
-from kivy.uix.button import Button
+from kivymd.app import MDApp
+from kivy.core.window import Window
+from kivy.config import Config
+Window.size = (1366, 768)
+Window.fullscreen = True
+import sqlite3
+from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
-from kivy.uix.label import Label
 from kivy.uix.image import Image
-from kivy.uix.gridlayout import GridLayout
 from kivy.uix.behaviors import ButtonBehavior
-from kivy.uix.dropdown import DropDown
-from kivy.core.text import Label as CoreLabel
-from kivy.clock import Clock
-import time
 from database import Login, Registration
-from lesson_one import Lesson_one
 from soroban import Soroban
 from fleshcards import Flashcards
+from stolb import Stolb
+from help import Help
+from audio import Audio_tren
+from lesson_one import Lesson_one
+from lesson_two import Lesson_two
+from lesson_three import Lesson_three
+from lesson_four import Lesson_four
+from lesson_five import Lesson_five
+from lesson_six import Lesson_six
+from lesson_seven import Lesson_seven
+from lesson_eight import Lesson_eight
+from lesson_nine import Lesson_nine
 
 class ImageButton(ButtonBehavior, Image):
 	pass
 
-class CustomDropDown(DropDown):
-    def __init__(self, *args, **kwargs):
-        super(CustomDropDown, self).__init__(*args, **kwargs)
-        self.ids.exit.text = 'Выход'
-
 class MainScreen(Screen):
     def __init__(self, *args, **kwargs):
         super(MainScreen, self).__init__(*args, **kwargs)
-        self.dropdown = CustomDropDown()
-        self.ids.bn.bind(on_release=self.dropdown.open)
         self.ids.uroki.text = '[color=0000ff]Уроки[/color]'
         self.ids.trenajor.text = '[color=0000ff]Тренажеры[/color]'
         self.ids.btvvod.text = 'Вводный урок'
@@ -44,72 +43,208 @@ class MainScreen(Screen):
         self.ids.urok7.text = 'Урок №7'
         self.ids.urok8.text = 'Урок №8'
         self.ids.urok9.text = 'Урок №9'
-        self.ids.urok10.text = 'Урок №10'
-        self.ids.urok11.text = 'Урок №11'
-        self.ids.urok12.text = 'Урок №12'
+        self.ids.soroban.text = 'Соробан'
+        self.ids.bn.text = 'Выход'
+        self.ids.bn_clear.text = 'Сбросить прогресс'
         self.ids.tren_stolb.text = 'Столбцы'
         self.ids.tren_flesh.text = 'Флеш-карты'
         self.ids.tren_audio.text = 'Аудио-диктанты'
 
+    def exit_func(self):
+        print(Login.urok)
+        conn = sqlite3.connect("Pupil.db")
+        cur = conn.cursor()
+        cur.execute(" UPDATE users SET count_lesson = ?, progress = ? WHERE id_users = ?", (Login.urok, Login.progress, Login.id))
+        conn.commit()
+        conn.close()
+        print(Login.progress)
+
+    def clearprogress(self):
+        Login.urok = 0
+        Login.progress = 0
+        conn = sqlite3.connect("Pupil.db")
+        cur = conn.cursor()
+        cur.execute(" UPDATE users SET count_lesson = ?, progress = ? WHERE id_users = ?",
+                    (Login.urok, Login.progress, Login.id))
+        conn.commit()
+        conn.close()
+        self.pars_urok(str(Login.urok))
+        self.pars_progress(str(Login.progress))
+        print(Login.progress)
+
+    def pars_urok(self, text):
+        self.manager.get_screen('mainscreen').ids.urok_bd.text = 'Вы закончили на Уроке №' + text
+
+    def pars_progress(self, text):
+        self.manager.get_screen('mainscreen').ids.progress_bd.text = 'Вы правильно выполнили ' + text + " заданий"
 
 class Introductory_lesson(Screen):
+    dialog = None
+    sound = None
     def __init__(self, *args, **kwargs):
         super(Introductory_lesson, self).__init__(*args, **kwargs)
         self.ids.textvvod.font_size = 26
-        self.ids.btvvod.text = 'Вводный [ref=l][b][color=0000ff]урок[/color][/b][/ref]'
-        self.str = 'Соробан - это японские счеты. В нем 13 (или больше) вертикальных спиц, поделенных поперек.' \
-                   'На каждой спице по пять косточек. Снизу - 4, каждая равна единице, сверху - 1, равная пяти.' \
-                   'При помощи этих пяти косточек на спице отображают числа от 1 до 9.' \
-                   'Считают только костяшки, придвинутые к центру.'
-        self.ids.textvvod.typewriter = Clock.create_trigger(self.typeit, 0.1)
-        self.ids.textvvod.typewriter()
+        self.ids.answer1.text = "Большой"
+        self.ids.answer2.text = "Указательный"
+        self.ids.answer3.text = "Мизинец"
+        self.ids.answer4.text = "Средний"
+        self.ids.answer1_1.text = "Большой"
+        self.ids.answer2_1.text = "Указательный"
+        self.ids.answer3_1.text = "Мизинец"
+        self.ids.answer4_1.text = "Средний"
+        self.ids.exit.text = "Вернуться на главную страницу"
+        self.ids.zadania.text = 'Задания'
+        self.ids.theory.text = 'Теория'
+        self.ids.propusk1.text = 'Пропустить'
+        self.ids.propusk2.text = 'Пропустить'
+        self.ids.propusk3.text = 'Пропустить'
+        self.ids.propusk4.text = 'Пропустить'
+        self.ids.ques1.text = '[color=0000ff] Какое значение [b]ВЕРХНЕЙ[/b] бусины [/color]'
+        self.ids.ques2.text = '[color=0000ff] Какое значение [b]НИЖНЕЙ[/b] бусины [/color]'
+        self.ids.ques3.text = '[color=0000ff] Каким пальцем передвигаются [b]ВЕРХНИЕ[/b] бусины [/color]'
+        self.ids.ques4.text = '[color=0000ff] Каким пальцем передвигаются [b]НИЖНИЕ[/b] бусины [/color]'
+        self.ids.toolbar.title = 'Вводный урок'
+        self.ids.textvvod.text = 'Соробан - это японские счеты. В нем 13 (или больше) вертикальных спиц, поделенных поперек.\n' \
+                   'На каждой спице по пять косточек. Снизу - 4, каждая равна единице, сверху - 1, равная пяти.\n' \
+                   'При помощи этих пяти косточек на спице отображают числа от 1 до 9.\n' \
+                   'Считают только костяшки, придвинутые к центру.\n'\
+                    'При счете на соробане используются только большой и указательный пальцы\n'\
+                    'Передвигая нижние косточки, используем БОЛЬШОЙ палец\n' \
+                    'Передвигая верхние косточки, используем УКАЗАТЕЛЬНЫЙ палец'
 
-    def typeit(self, dt):
-        self.ids.textvvod.text += self.str[0]
-        self.str = self.str[1:]
-        if len(self.str) > 0:
-            self.ids.textvvod.typewriter()
+    def propusk(self):
+        if self.ids.screen_1.opacity == 1:
+            self.ids.screen_1.opacity = 0
+            self.ids.screen_2.opacity = 1
+            self.ids.screen_3.opacity = 0
+            self.ids.screen_4.opacity = 0
+        elif self.ids.screen_2.opacity == 1:
+            self.ids.screen_1.opacity = 0
+            self.ids.screen_2.opacity = 0
+            self.ids.screen_3.opacity = 1
+            self.ids.screen_4.opacity = 0
+        elif self.ids.screen_3.opacity == 1:
+            self.ids.screen_1.opacity = 0
+            self.ids.screen_2.opacity = 0
+            self.ids.screen_3.opacity = 0
+            self.ids.screen_4.opacity = 1
+        elif self.ids.screen_1.opacity == 1:
+            self.ids.screen_1.opacity = 1
+            self.ids.screen_2.opacity = 0
+            self.ids.screen_3.opacity = 0
+            self.ids.screen_4.opacity = 0
 
-    def btn_pressed(self):
-        flag = True
-        if flag:
-            sound = SoundLoader.load('sounds/Vvod_urok.wav')
-            sound.play()
-            flag = False
+    def answer1_pressed(self):
+        if self.ids.screen_4.opacity == 1:
+            sound = SoundLoader.load('sounds/success.WAV')
+            self.ids.screen_1.opacity = 1
+            self.ids.screen_2.opacity = 0
+            self.ids.screen_3.opacity = 0
+            self.ids.screen_4.opacity = 0
+            print(Login.urok)
+            if Login.urok < 1:
+                Login.urok = 1
+                self.pars_urok()
+            Lesson_one.show_alert_dialog(Lesson_one)
+            print(Login.urok)
         else:
-            flag = True
+            sound = SoundLoader.load('sounds/error.wav')
+        sound.play()
+
+    def pars_urok(self):
+        self.manager.get_screen('mainscreen').ids.urok_bd.text = 'Вы закончили на Вводном Уроке'
+
+
+    def answer2_pressed(self):
+        if self.ids.screen_3.opacity == 1:
+            sound = SoundLoader.load('sounds/success.WAV')
+            self.ids.screen_1.opacity = 0
+            self.ids.screen_2.opacity = 0
+            self.ids.screen_3.opacity = 0
+            self.ids.screen_4.opacity = 1
+        else:
+            sound = SoundLoader.load('sounds/error.wav')
+        sound.play()
+
+    def answer3_pressed(self):
+        if self.ids.screen_1.opacity == 1:
+            sound = SoundLoader.load('sounds/success.WAV')
+            self.ids.screen_1.opacity = 0
+            self.ids.screen_2.opacity = 1
+            self.ids.screen_3.opacity = 0
+            self.ids.screen_4.opacity = 0
+        else:
+            sound = SoundLoader.load('sounds/error.wav')
+        sound.play()
+
+    def answer4_pressed(self):
+        if self.ids.screen_2.opacity == 1:
+            sound = SoundLoader.load('sounds/success.WAV')
+            self.ids.screen_1.opacity = 0
+            self.ids.screen_2.opacity = 0
+            self.ids.screen_3.opacity = 1
+            self.ids.screen_4.opacity = 0
+        else:
+            sound = SoundLoader.load('sounds/error.wav')
+        sound.play()
+
+    def stop(self):
+        if self.sound != None and self.sound.state == 'play':
+            self.sound.stop()
+
+    def play_sound(self):
+        if self.sound == None or self.sound.state == 'stop':
+            self.sound = SoundLoader.load('sounds/Vvod_urok.wav')
+            self.sound.play()
+            self.sound.state = 'play'
+            self.ids.button_sound.icon = 'volume-high'
+        else:
+            self.sound.state = 'stop'
+            self.sound.stop()
+            self.ids.button_sound.icon = 'volume-off'
 
 
 class First(Screen):
-    pass
+    def __init__(self, *args, **kwargs):
+        super(First, self).__init__(*args, **kwargs)
+        self.ids.button_input.text = 'Вход'
+        self.ids.Register.text = 'Регистрация'
+#
+# def user_name_rew(a):
+#     global name_user
+#     name_user = a
+#     return name_user
 
-def user_name_rew(a):
-    global name_user
-    name_user = a
-    return name_user
-
-class LoginApp(App):
-    #username = StringProperty(None)
-    #password = StringProperty(None)
-    #lesson_one = Lesson_one()
+class LoginApp(MDApp):
 
     def build(self):
+        self.icon = 'Image/icon.png'
+        self.title = 'Mental_math'
         self.theme_cls.primary_palette = "Yellow"
         manager = ScreenManager()
-
         manager.add_widget(First(name='first'))
         manager.add_widget(Login(name='login'))
         manager.add_widget(Registration(name='registration'))
         manager.add_widget(MainScreen(name='mainscreen'))
         manager.add_widget(Introductory_lesson(name='introductory_lesson'))
         manager.add_widget(Lesson_one(name='lesson_one'))
-        #manager.add_widget(Lesson_one(name='lesson_one_2'))
-        #manager.add_widget(Lesson_one_2(name='lesson_one_2'))
-        #manager.add_widget(Lesson_one_3(name='lesson_one_3'))
-        #manager.add_widget(Lesson_one_4(name = 'lesson_one_4'))
+        manager.add_widget(Lesson_two(name='lesson_two'))
+        manager.add_widget(Lesson_three(name='lesson_three'))
+        manager.add_widget(Lesson_four(name = 'lesson_four'))
+        manager.add_widget(Lesson_five(name='lesson_five'))
+        manager.add_widget(Lesson_six(name='lesson_six'))
+        manager.add_widget(Lesson_seven(name='lesson_seven'))
+        manager.add_widget(Lesson_eight(name='lesson_eight'))
+        manager.add_widget(Lesson_nine(name='lesson_nine'))
         manager.add_widget(Soroban(name = 'soroban'))
         manager.add_widget(Flashcards(name = 'flashcards'))
+        manager.add_widget(Stolb(name='stolb'))
+        manager.add_widget(Help(name='help'))
+        manager.add_widget(Audio_tren(name='audio_tren'))
         return manager
 
 if __name__ == '__main__':
+    Config.set('graphics', 'fullscreen', 'auto')
+    Config.set('graphics', 'window_state', 'maximized')
+    Config.write()
     LoginApp().run()

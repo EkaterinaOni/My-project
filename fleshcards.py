@@ -1,8 +1,11 @@
 from kivy.uix.screenmanager import Screen
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
+from kivy.uix.behaviors import ToggleButtonBehavior
 from kivy.core.audio import SoundLoader
 from kivy.clock import Clock
+from kivy.uix.image import Image
+from database import Login
 import random
 
 
@@ -107,6 +110,7 @@ card = {1: ('Image/1.jpg'),
         99: ('Image/99.jpg'),
         }
 
+
 class Prodol(Popup):
     def __init__(self, *args, **kwargs):
         super(Prodol, self).__init__(*args, **kwargs)
@@ -131,9 +135,23 @@ class Flashcards(Screen):
         self.ids.odnl.text = "Однозначные числа"
         self.ids.dvzl.text = "Двузначные числа"
         self.ids.begin.text = "Начать"
+        self.title = "Флеш карты"
+        self.ids.bn_back.text = "Вернуться на главную"
+        self.ids.list1.text = "Инструкция"
+        self.ids.list2.text = "Вернуться к тренажеру"
+        self.ids.flash_title.title = "Тренажер Флеш-карты"
 
-
-
+    def clean(self):
+        self.r = 0
+        self.m = 0
+        self.ids.my_answer.text = ''
+        self.ids.answer.text = ''
+        self.ids.vp.opacity = 0
+        self.ids.cr.opacity = 0
+        self.ids.my_answer.opacity = 0
+        self.ids.cr.source = 'None'
+        self.ids.make.text = "Выполнено 0 из 10"
+        self.ids.right.text = "Правильно 0 из 0 "
 
 
     def update(self, dt):
@@ -154,6 +172,7 @@ class Flashcards(Screen):
         else:
             self.kol1 = 10
             self.kol2 = 99
+
         self.l = random.randint(self.kol1, self.kol2)
         self.ids.cr.source = card[self.l]
         self.ids.cr.opacity = 1
@@ -163,6 +182,7 @@ class Flashcards(Screen):
         self.ids.my_answer.text = ''
         self.ids.answer.text = ''
         self.prov()
+        print('self.r = ', self.r)
 
     def prov(self):
         if self.ids.vp.opacity == 1:
@@ -179,6 +199,9 @@ class Flashcards(Screen):
                     if int(ans) == self.l:
                         self.ids.my_answer.text = str(self.l) + ' = ' + ans
                         self.r = self.r + 1
+                        Login.progress = Login.progress + 1
+                        self.pars_progress(str(Login.progress))
+                        print(Login.progress)
                         sound = SoundLoader.load('sounds/success.wav')
                         self.ids.rightb.value += 10
                         sound.play()
@@ -208,3 +231,14 @@ class Flashcards(Screen):
                     self.ids.my_answer.opacity = 0
                     self.ids.cr.source = 'None'
                     Prodol().open()
+
+    def pars_progress(self, text):
+        a1 = [0,5,6,7,8,9]
+        a2 = [1]
+        a3 = [2,3,4]
+        if int(text) % 10 in a1:
+            self.manager.get_screen('mainscreen').ids.progress_bd.text = 'Вы правильно выполнили ' + text + " заданий"
+        elif int(text) % 10 in a2:
+            self.manager.get_screen('mainscreen').ids.progress_bd.text = 'Вы правильно выполнили ' + text + " задание"
+        elif int(text) % 10 in a3:
+            self.manager.get_screen('mainscreen').ids.progress_bd.text = 'Вы правильно выполнили ' + text + " задания"

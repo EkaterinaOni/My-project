@@ -1,0 +1,225 @@
+
+<Lesson_seven>:
+    BoxLayout:
+        orientation:'vertical'
+        MDToolbar:
+            id : toolbar
+            md_bg_color: .2, .2, .2, 1
+            specific_text_color: 1, 1, 1, 1
+            MDRoundFlatButton:
+                id:exit
+                pos_hint: {"center_x": .9, "center_y": .54}
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'mainscreen'
+                    root.stop()
+                    root.clean()
+
+        ScreenManager:
+            id: sm
+            Screen:
+                id: plus
+                name: 'screen_one'
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: [10,0,-10,5]
+                    spacing: 0
+                    MDLabel:
+                        id: first_text
+                    MDLabel:
+                        id: second_text
+                    Image:
+                        source: "Image/26+.jpg"
+                        size_hint: 1, None
+                    MDLabel:
+                        id: third_text
+                    MDLabel:
+                        id: fourth_text
+                    Image:
+                        source: "Image/30+.jpg"
+                        size_hint: 1, None
+                    MDLabel:
+                        id: fifth_text
+                    MDFillRoundFlatIconButton:
+                        id: next_one
+                        icon:"arrow-down"
+                        on_press:
+                            sm.transition.direction = 'up'
+                            sm.current = 'screen_two'
+                MDIconButton:
+                    id: button_sound
+                    icon:  "volume-high"
+                    user_font_size: "48sp"
+                    pos_hint: {'x': 0.9, 'y': 0.9}
+                    on_press: root.play_sound()
+            Screen:
+                name: 'screen_two'
+                MDFillRoundFlatIconButton:
+                    id: next_up
+                    icon:"arrow-up"
+                    pos_hint: {'x': 0.02,'y': 0.9}
+                    on_press:
+                        sm.transition.direction = 'down'
+                        sm.current = 'screen_one'
+                Image:
+                    source: "Image/60+.jpg"
+                    pos_hint: {'x': 0.4,'y': 0.55}
+                    size_hint: .3, .6
+                MDLabel:
+                    id: sixth_text
+                    pos_hint: {'x': 0.02,'y': 0.11}
+                MDLabel:
+                    id: seventh_text
+                    pos_hint: {'x': 0.02,'y': 0.03}
+                MDLabel:
+                    id: seventh_text_1
+                    pos_hint: {'x': 0.02,'y': -0.03}
+                MDLabel:
+                    id: seventh_text_2
+                    pos_hint: {'x': 0.02,'y': -0.1}
+                MDLabel:
+                    id: seventh_text_3
+                    pos_hint: {'x': 0.02,'y': -0.16}
+                Image:
+                    source: "Image/mental13_23.gif"
+                    pos_hint: {'x': 0.4,'y': -0.05}
+                    size_hint: .25, .5
+                    MDFillRoundFlatIconButton:
+                        id: next_one_1
+                        icon:"arrow-down"
+                        pos_hint: {'x': 0.02,'y': 0.03}
+                        on_press:
+                            sm.transition.direction = 'up'
+                            sm.current = 'screen_three'
+            Screen:
+                name: 'screen_three'
+                MDFillRoundFlatIconButton:
+                    id: next_up_1
+                    icon:"arrow-up"
+                    pos_hint: {'x': 0.02,'y': 0.9}
+                    on_press:
+                        sm.transition.direction = 'down'
+                        sm.current = 'screen_two'
+                MDLabel:
+                    id: eight_text
+                    pos_hint: {'x': 0.02,'y': 0.35}
+                MDLabel:
+                    id: nine_text_1
+                    pos_hint: {'x': 0.02,'y': 0.28}
+                MDLabel:
+                    id: nine_text_2
+                    pos_hint: {'x': 0.02,'y': 0.23}
+                Image:
+                    source: "Image/15-.jpg"
+                    pos_hint: {'x': 0.4,'y': 0.31}
+                    size_hint: .3, .6
+                MDLabel:
+                    id: ten_text
+                    pos_hint: {'x': 0.02,'y': -0.04}
+                Image:
+                    source: "Image/2-.jpg"
+                    pos_hint: {'x': 0.4,'y': -0.03}
+                    size_hint: .3, .6
+                MDFillRoundFlatIconButton:
+                    id: next_one_2
+                    icon:"arrow-down"
+                    pos_hint: {'x': 0.02,'y': 0.03}
+                    on_press:
+                        sm.transition.direction = 'up'
+                        sm.current = 'screen_four'
+            Screen
+                name: 'screen_four'
+                MDFillRoundFlatIconButton:
+                    id: next_up_2
+                    icon:"arrow-up"
+                    pos_hint: {'x': 0.02,'y': 0.9}
+                    on_press:
+                        sm.transition.direction = 'down'
+                        sm.current = 'screen_three'
+                Button:
+                    id: prim
+                    pos_hint: {'x': 0.1,'y': 0.77}
+                    size_hint: 0.2, 0.07
+                    on_press: root.primer()
+                Button:
+                    id: prov
+                    pos_hint: {'x': 0.7,'y': 0.77}
+                    size_hint: 0.2, 0.07
+                    on_press: root.proverka()
+                LabelP:
+                    id: p1
+                    pos_hint: {'x': 0.3,'y': 0.7}
+
+                TextInputO:
+                    id: o1
+                    pos_hint: {'x': 0.6,'y': 0.7}
+
+                ImageYN:
+                    id: i1
+                    pos_hint: {'x': 0.7,'y': 0.7}
+
+
+                LabelP:
+                    id: p2
+                    pos_hint: {'x': 0.3,'y': 0.63}
+
+                TextInputO:
+                    id: o2
+                    pos_hint: {'x': 0.6,'y': 0.63}
+
+                ImageYN:
+                    id: i2
+                    pos_hint: {'x': 0.7,'y': 0.63}
+
+
+                LabelP:
+                    id: p3
+                    pos_hint: {'x': 0.3,'y': 0.56}
+
+                TextInputO:
+                    id: o3
+                    pos_hint: {'x': 0.6,'y': 0.56}
+
+                ImageYN:
+                    id: i3
+                    pos_hint: {'x': 0.7,'y': 0.56}
+
+
+                LabelP:
+                    id: p4
+                    pos_hint: {'x': 0.3,'y': 0.49}
+
+                TextInputO:
+                    id: o4
+                    pos_hint: {'x': 0.6,'y': 0.49}
+
+                ImageYN:
+                    id: i4
+                    pos_hint: {'x': 0.7,'y': 0.49}
+
+
+                LabelP:
+                    id: p5
+                    pos_hint: {'x': 0.3,'y': 0.42}
+
+                TextInputO:
+                    id: o5
+                    pos_hint: {'x': 0.6,'y': 0.42}
+
+                ImageYN:
+                    id: i5
+                    pos_hint: {'x': 0.7,'y': 0.42}
+
+
+                LabelP:
+                    id: p6
+                    pos_hint: {'x': 0.3,'y': 0.35}
+
+                TextInputO:
+                    id: o6
+                    pos_hint: {'x': 0.6,'y': 0.35}
+
+                ImageYN:
+                    id: i6
+                    pos_hint: {'x': 0.7,'y': 0.35}
+

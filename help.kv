@@ -1,0 +1,413 @@
+<Help>:
+    ScreenManager:
+        id: sm1
+
+        Screen:
+            id: stolb_help
+            name: 'screen_stolb'
+            BoxLayout:
+                orientation:'vertical'
+                padding: [0,0,-10,5]
+                spacing: 5
+                MDToolbar:
+                    id : toolbar_help_1
+                    type: "top"
+                    md_bg_color: .2, .2, .2, 1
+                    specific_text_color: 1, 1, 1, 1
+                    MDRoundFlatButton:
+                        id:return1
+                        pos_hint: {"x": .3, "y": .3}
+                        size_hint: (.4,.4)
+                        on_press:
+                            root.manager.transition.direction = 'right'
+                            root.manager.current = 'stolb'
+
+                Screen:
+
+                    MDLabel:
+                        id: stolb1
+                        pos_hint: {'x': 0.02,'y': 0.85}
+                        font_size: 20
+                        halign: "left"
+                        size_hint: (.5,.5)
+                        text_size: self.size
+                    MDLabel:
+                        id: odnozn   # Однозначные
+                        color: 1,0.4,0.5,1
+                        size_hint: 0.2, 0.05
+                        pos_hint: {'x': 0.53,'y': 0.9}
+                        halign: 'left'
+                        font_size: 18
+
+                    ToggleButton:
+                        id: odn
+                        state: 'down'
+                        group: 'razryd'
+                        size_hint: 0.02, 0.02
+                        pos_hint: {'x': 0.5,'y': 0.92}
+
+                    MDLabel:
+                        id: dvuznach   # Двузначные
+                        color: 1,0.4,0.5,1
+                        size_hint: 0.2, 0.05
+                        pos_hint: {'x': 0.53,'y': 0.8}
+                        halign: 'left'
+                        font_size: 18
+
+                    ToggleButton:
+                        id: dvuz
+                        group: 'razryd'
+                        size_hint: 0.02, 0.02
+                        pos_hint: {'x': 0.5,'y': 0.8}
+
+
+                    MDLabel:
+                        id: stolb2
+                        font_size: 20
+                        pos_hint: {'x': 0.02,'y': 0.7}
+                        halign: "left"
+                        size_hint: (.5,.5)
+                        text_size: self.size
+
+                    MDLabel:
+                        id: straight_lower   # Прямой счет на нижних косточках
+                        color: 0, 0, 0, 1
+                        size_hint: 0.2, 0.05
+                        pos_hint: {'x': 0.53,'y': 0.7}
+                        halign: 'left'
+                        font_size: 18
+
+                    ToggleButton:
+                        id: straight_lower_tog
+                        state: 'down'
+                        group: 'stolb'
+                        size_hint: 0.02, 0.02
+                        pos_hint: {'x': 0.5,'y': 0.72}
+
+                    MDLabel:
+                        id: straight_all # Прямой счет на всех косточках
+                        color: 0, 0, 0, 1
+                        size_hint: 0.2, 0.05
+                        pos_hint: {'x': 0.53,'y': 0.6}
+                        halign: 'left'
+                        #italic: True
+                        #bold: True
+                        font_size: 18
+
+                    ToggleButton:
+                        id: straight_all_tog
+                        group: 'stolb'
+                        size_hint: 0.02, 0.02
+                        pos_hint: {'x': 0.5,'y': 0.62}
+
+                    MDLabel:
+                        id: young_plus # Младшие товарищи +
+                        color: 0, 0, 0, 1
+                        size_hint: 0.2, 0.05
+                        pos_hint: {'x': 0.53,'y': 0.5}
+                        halign: 'left'
+                        #italic: True
+                        #bold: True
+                        font_size: 18
+
+                    ToggleButton:
+                        id: young_plus_tog
+                        group: 'stolb'
+                        size_hint: 0.02, 0.02
+                        pos_hint: {'x': 0.5,'y': 0.52}
+
+                    MDLabel:
+                        id: young_minus # Младшие товарищи -
+                        color: 0, 0, 0, 1
+                        size_hint: 0.2, 0.05
+                        pos_hint: {'x': 0.53,'y': 0.4}
+                        halign: 'left'
+                        #italic: True
+                        #bold: True
+                        font_size: 18
+
+                    ToggleButton:
+                        id: young_minus_tog
+                        group: 'stolb'
+                        size_hint: 0.02, 0.02
+                        pos_hint: {'x': 0.5,'y': 0.42}
+
+                    MDLabel:
+                        id: stolb3
+                        font_size: 20
+                        pos_hint: {'x': 0.02,'y': 0.3}
+                        halign: "left"
+                        size_hint: (.5,.5)
+                        text_size: self.size
+
+                    MDFillRoundFlatButton:
+                        id: beggg
+                        font_size: 24
+                        pos_hint: {'x': 0.53,'y': 0.3}
+                        size_hint: 0.2, 0.07
+
+                    MDLabel:
+                        id: stolb4
+                        font_size: 20
+                        pos_hint: {'x': 0.02,'y': 0.1}
+                        halign: "left"
+                        size_hint: (.5,.5)
+                        text_size: self.size
+
+                    MDIconButton:
+                        id: prov
+                        icon: "arrow-right-bold"
+                        user_font_size: "64sp"
+                        pos_hint: {"x": 0.53, "y": 0.1}
+
+                    MDFillRoundFlatIconButton:
+                        id: audio_screen
+                        icon:"arrow-down"
+                        on_press:
+                            sm1.transition.direction = 'up'
+                            sm1.current = 'screen_flash'
+
+
+        Screen:
+            id: flesh_help
+            name: 'screen_flash'
+            BoxLayout:
+                orientation:'vertical'
+                padding: [0,0,-10,5]
+                spacing: 5
+                MDToolbar:
+                    id : toolbar_help
+                    type: "top"
+                    md_bg_color: .2, .2, .2, 1
+                    specific_text_color: 1, 1, 1, 1
+                    MDRoundFlatButton:
+                        id:return0
+                        pos_hint: {"x": .3, "y": .3}
+                        size_hint: (.4,.4)
+                        on_press:
+                            root.manager.transition.direction = 'right'
+                            root.manager.current = 'flashcards'
+                Screen:
+                    MDFillRoundFlatIconButton:
+                        id: down1
+                        icon:"arrow-up"
+                        pos_hint: {'x': 0.02,'y': 0.94}
+                        on_press:
+                            sm1.transition.direction = 'down'
+                            sm1.current = 'screen_stolb'
+                    MDLabel:
+                        id: first
+                        pos_hint: {'x': 0.02,'y': 0.84}
+                        halign: "left"
+                        size_hint: (.5,.5)
+                        text_size: self.size
+                    TextInput:
+                        pos_hint: {'x': 0.52,'y': 0.84}
+                        size_hint: 0.2, 0.07
+                        multiline: False
+                        focus: True
+                        font_size: 20
+                        text: '1'
+                        halign: 'center'
+
+                    MDLabel:
+                        id: second
+                        halign: "left"
+                        pos_hint: {'x': 0.02,'y': 0.77}
+                        size_hint: (.5,.5)
+                        text_size: self.size
+                    MDLabel:
+                        id: odnl
+                        color: 0, 0, 0, 1
+                        size_hint: 0.2, 0.05
+                        pos_hint: {'x': 0.52,'y': 0.77}
+                        halign: 'left'
+                        font_size: 18
+
+                    ToggleButton:
+                        id: odn
+                        group: 'kolvo'
+                        state: 'down'
+                        size_hint: 0.02, 0.02
+                        pos_hint: {'x': 0.5,'y': 0.77}
+                        source: 'atlas://data/images/defaulttheme/checkbox_off'
+
+                    MDLabel:
+                        id: dvzl
+                        color: 0, 0, 0, 1
+                        size_hint: 0.2, 0.05
+                        pos_hint: {'x': 0.52,'y': 0.72}
+                        halign: 'left'
+                        #italic: True
+                        #bold: True
+                        font_size: 18
+
+                    ToggleButton:
+                        id: dvz
+                        group: 'kolvo'
+                        size_hint: 0.02, 0.02
+                        pos_hint: {'x': 0.5,'y': 0.72}
+                        source: 'atlas://data/images/defaulttheme/checkbox_off'
+                    MDLabel:
+                        id: third
+                        halign: "left"
+                        pos_hint: {'x': 0.02,'y': 0.65}
+                        size_hint: (.5,.5)
+                        text_size: self.size
+                    MDFillRoundFlatIconButton:
+                        id: begin
+                        icon: 'arrow-right-drop-circle-outline'
+                        pos_hint: {'x': 0.5,'y': 0.62}
+                        size_hint: 0.2, 0.07
+                    MDLabel:
+                        id: fourth
+                        halign: "left"
+                        pos_hint: {'x': 0.02,'y': 0.51}
+                        size_hint: (.5,.5)
+                        text_size: self.size
+                    TextInput:
+                        id: my_answer
+                        multiline: False
+                        focus: True
+                        font_size: 47
+                        text: ''
+                        halign: 'center'
+                        size_hint: 0.2, 0.1
+                        pos_hint: {'x': 0.52,'y': 0.51}
+                    MDLabel:
+                        id: fifth
+                        halign: "left"
+                        pos_hint: {'x': 0.02,'y': 0.37}
+                        size_hint: (.5,.5)
+                        text_size: self.size
+                    Button:
+                        size_hint: 0.12, 0.12
+                        pos_hint: {'x': 0.52,'y': 0.38}
+                        Image:
+                            source: "Image/R.png"
+                            size_hint: 0.07, 0.05
+                            center_x: self.parent.center_x
+                            center_y: self.parent.center_y
+                    MDLabel:
+                        id: sixth
+                        halign: "left"
+                        pos_hint: {'x': 0.02,'y': 0.25}
+                        size_hint: (.5,.5)
+                        text_size: self.size
+                    TextInput:
+                        id: my_answer
+                        multiline: False
+                        focus: True
+                        font_size: 46
+                        text: ''
+                        halign: 'center'
+                        size_hint: 0.2, 0.1
+                        pos_hint: {'x': 0.52,'y': 0.25}
+                    MDLabel:
+                        id: seventh
+                        halign: "left"
+                        pos_hint: {'x': 0.02,'y': 0.12}
+                        size_hint: (.5,.5)
+                        text_size: self.size
+                    TextInput:
+                        id: my_answer1
+                        multiline: False
+                        focus: True
+                        font_size: 46
+                        text: ''
+                        halign: 'center'
+                        size_hint: 0.2, 0.1
+                        pos_hint: {'x': 0.52,'y': 0.12}
+
+                    MDFillRoundFlatIconButton:
+                        id: stolb_screen
+                        icon:"arrow-down"
+#                        pos_hint: {'x': 0.5,'y': 0.05}
+#                        size_hint: 0.2, 0.07
+                        on_press:
+                            sm1.transition.direction = 'up'
+                            sm1.current = 'screen_audio'
+
+
+        Screen:
+            id: audio_help
+            name: 'screen_audio'
+            BoxLayout:
+                orientation:'vertical'
+                padding: [0,0,-10,5]
+                spacing: 5
+                MDToolbar:
+                    id : toolbar_help_2
+                    type: "top"
+                    md_bg_color: .2, .2, .2, 1
+                    specific_text_color: 1, 1, 1, 1
+                    MDRoundFlatButton:
+                        id:return2
+                        pos_hint: {"x": .3, "y": .3}
+                        size_hint: (.4,.4)
+                        on_press:
+                            root.manager.transition.direction = 'right'
+                            root.manager.current = 'audio_tren'
+                Screen:
+                    MDFillRoundFlatIconButton:
+                        id: down2
+                        icon:"arrow-up"
+                        pos_hint: {'x': 0.02,'y': 0.9}
+                        on_press:
+                            sm1.transition.direction = 'down'
+                            sm1.current = 'screen_flash'
+                    MDLabel:
+                        id: audio1
+                        pos_hint: {'x': 0.02,'y': 0.85}
+                        font_size: 20
+                        halign: "left"
+                        size_hint: (.5,.5)
+                        text_size: self.size
+                    Spinner:
+                        id: list
+                        size_hint: None, None
+                        size: 400, 50
+                        pos_hint:{'x':.53, 'y': 0.85}
+
+                    MDLabel:
+                        id: audio2
+                        font_size: 20
+                        pos_hint: {'x': 0.02,'y': 0.65}
+                        halign: "left"
+                        size_hint: (.5,.5)
+                        text_size: self.size
+
+                    MDFillRoundFlatButton:
+                        id: beg
+                        font_size: 24
+                        pos_hint: {'x': 0.53,'y': 0.65}
+                        size_hint: 0.2, 0.07
+
+                    MDLabel:
+                        id: audio3
+                        font_size: 20
+                        pos_hint: {'x': 0.02,'y': 0.45}
+                        halign: "left"
+                        size_hint: (.5,.5)
+                        text_size: self.size
+
+                    TextInput:
+                        font_size: 30
+                        size_hint: 0.1, 0.1
+                        pos_hint: {'x': 0.53,'y': 0.45}
+                        halign: 'center'
+                        multiline: False
+                        input_filter: "int"
+
+                    MDLabel:
+                        id: audio4
+                        font_size: 20
+                        pos_hint: {'x': 0.02,'y': 0.25}
+                        halign: "left"
+                        size_hint: (.5,.5)
+                        text_size: self.size
+                    MDFillRoundFlatButton:
+                        id: prov
+                        font_size: 24
+                        pos_hint: {'x': 0.53,'y': 0.25}
+                        size_hint: 0.2, 0.07

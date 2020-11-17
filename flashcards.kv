@@ -1,0 +1,208 @@
+#: include help.kv
+
+
+<Flashcards>:
+    NavigationLayout:
+        id: nav_layout
+        ScreenManager:
+            Screen:
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDToolbar:
+                        id: flash_title
+                        elevation: 18
+                        type: "top"
+                        left_action_items: [["menu", lambda x: nav_drawer.set_state()]]
+                    ScreenManager:
+                        id: screen_man
+                        Screen:
+                            id: flashcards
+                            name: "flashcards"
+                            canvas:
+                                Color:
+                                    rgba: 0,255,222,255
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.size
+
+                            Label:
+                                markup: True
+                                id: lb
+                                font_size: 30
+                                color: 1,0.4,0.5,1
+                                size_hint: 0.3, 0.1
+                                pos_hint: {'x': 0,'y': 0.9}
+
+                            LabelUp:
+                                id: make
+                                pos_hint: {'x': 0.5,'y': 0.905}
+
+                            ProgressBar:
+                                id: makeb
+                                pos_hint: {'x': 0.5,'y': 0.89}
+                                size_hint: 0.2, 0.05
+
+                            LabelUp:
+                                id: right
+                                pos_hint: {'x': 0.75,'y': 0.905}
+
+                            ProgressBar:
+                                id: rightb
+                                pos_hint: {'x': 0.75,'y': 0.89}
+                                size_hint: 0.2, 0.05
+
+
+                            Label:
+                                id: sk
+                                color: 0, 0, 0, 1
+                                size_hint: 0.2, 0.05
+                                pos_hint: {'x': 0.02,'y': 0.8}
+                                halign: 'left'
+                                font_size: 20
+
+                            TextInput:
+                                id: z
+                                pos_hint: {'x': 0.02,'y': 0.73}
+                                size_hint: 0.2, 0.07
+                                multiline: False
+                                focus: True
+                                font_size: 20
+                                text: '1'
+                                halign: 'center'
+
+                            MDLabel:
+                                id: odnl
+                                color: 0, 0, 0, 1
+                                size_hint: 0.2, 0.05
+                                pos_hint: {'x': 0.05,'y': 0.6}
+                                halign: 'left'
+                                font_size: 18
+
+                            ToggleButton:
+                                id: odn
+                                group: 'kolvo'
+                                state: 'down'
+                                size_hint: 0.02, 0.02
+                                pos_hint: {'x': 0.02,'y': 0.62}
+
+                            MDLabel:
+                                id: dvzl
+                                color: 0, 0, 0, 1
+                                size_hint: 0.2, 0.05
+                                pos_hint: {'x': 0.05,'y': 0.5}
+                                halign: 'left'
+                                #italic: True
+                                #bold: True
+                                font_size: 18
+
+                            ToggleButton:
+                                id: dvz
+                                group: 'kolvo'
+                                size_hint: 0.02, 0.02
+                                pos_hint: {'x': 0.02,'y': 0.52}
+
+                            MDFillRoundFlatIconButton:
+                                id: begin
+                                icon: 'arrow-right-drop-circle-outline'
+                                pos_hint: {'x': 0.02,'y': 0.40}
+                                size_hint: 0.2, 0.07
+                                on_press: root.begin_card()
+
+                            Image:
+                                id: cr
+                                allow_stretch: True
+                                keep_ratio: False
+                                pos_hint: {'x': 0.47,'y': 0.25}
+                                opacity: 0
+                                size_hint: 0.3, 0.5
+
+                            Label:
+                                id: answer
+                                color: 0, 0, 0, 1
+                                size_hint: 0.2, 0.2
+                                pos_hint: {'x': 0.5,'y': 0.7}
+                                font_size: 60
+
+                            TextInput:
+                                id: my_answer
+                                multiline: False
+                                focus: True
+                                font_size: 60
+                                text: ''
+                                halign: 'center'
+                                size_hint: 0.3, 0.15
+                                pos_hint: {'x': 0.45,'y': 0.05}
+                                opacity: 0
+
+                            Button:
+                                id: vp
+                                opacity: 0
+                                size_hint: 0.15, 0.15
+                                pos_hint: {'x': 0.75,'y': 0.05}
+                                on_press:
+                                    root.prov()
+                                Image:
+                                    id: vpi
+                                    source: "Image/R.png"
+                                    size_hint: 0.12, 0.1
+                                    center_x: self.parent.center_x
+                                    center_y: self.parent.center_y
+
+#                            ButtonIcon:
+#                                id: bn_back
+#                                source:  "Image/ic_arrow_back.png"
+#                                size_hint_x : 0.06
+#                                size_hint_y : 0.05
+#                                pos_hint: {'x': 0., 'y': 0.}
+#                                on_press:
+#                                    root.manager.transition.direction = 'right'
+#                                    root.manager.current = 'mainscreen'
+                        Screen:
+                            id: help
+                            name: "help"
+
+        MDNavigationDrawer:
+            id: nav_drawer
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: "8dp"
+                spacing: "8dp"
+
+                Image:
+                    size_hint: None, None
+                    size: '288dp', '280dp'
+                    source: "Image/firstscreen.png"
+
+                ScrollView:
+
+                    MDList:
+
+                        OneLineIconListItem:
+                            id: list1
+                            #text: "help"
+                            on_press:
+                                root.manager.current = 'help'
+                                nav_drawer.set_state()
+                            IconLeftWidget:
+                                icon: "help"
+
+                        OneLineIconListItem:
+                            id: list2
+                            #text: "flash"
+                            on_release:
+                                screen_man.current = "flashcards"
+                                nav_drawer.set_state()
+                            IconLeftWidget:
+                                icon: "cards-outline"
+
+                        OneLineIconListItem:
+                            id: bn_back
+                            on_press:
+                                root.manager.transition.direction = 'right'
+                                root.manager.current = 'mainscreen'
+                                nav_drawer.set_state()
+                                root.clean()
+                                root.update(1)
+                            IconLeftWidget:
+                                icon: "arrow-left"

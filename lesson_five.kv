@@ -1,0 +1,148 @@
+<Lesson_five>:
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: 0,255,222,255
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        MDRoundFlatButton:
+            id:exit
+            text_color: 0,0,0,1
+            md_bg_color: 0, 0, 1, 0.25
+            pos_hint: {"center_x": .84, "center_y": .95}
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'mainscreen'
+                root.clean()
+
+        Label:
+            markup: True
+            id: lb
+            font_size: 30
+            color: 1,0.4,0.5,1
+            size_hint: 0.3, 0.1
+            pos_hint: {'x': 0.3,'y': 0.9}
+
+        Label:
+            id: lb1
+            font_size:20
+            color: 0,0,0,1
+            size_hint: 0.3, 0.1
+            pos_hint: {'x': 0.35,'y': 0.83}
+
+        Label:
+            font_size: 45
+            color: 1,0,0,1
+            text: "-4 = +1 - 5"
+            size_hint: 0.3, 0.1
+            pos_hint: {'x': 0.35,'y': 0.73}
+        Label:
+            font_size: 45
+            color: 1,0,0,1
+            text: "-3 = +2 - 5"
+            size_hint: 0.3, 0.1
+            pos_hint: {'x': 0.35,'y': 0.66}
+        Label:
+            font_size: 45
+            color: 1,0,0,1
+            text: "-2 = +3 - 5"
+            size_hint: 0.3, 0.1
+            pos_hint: {'x': 0.35,'y': 0.59}
+        Label:
+            font_size: 45
+            color: 1,0,0,1
+            text: "-1 = +4 - 5"
+            size_hint: 0.3, 0.1
+            pos_hint: {'x': 0.35,'y': 0.52}
+        Button:
+            id: prim
+            pos_hint: {'x': 0.1,'y': 0.47}
+            size_hint: 0.2, 0.07
+            on_press: root.primer()
+        Button:
+            id: prov
+            pos_hint: {'x': 0.7,'y': 0.47}
+            size_hint: 0.2, 0.07
+            on_press: root.proverka()
+
+        LabelP:
+            id: p1
+            pos_hint: {'x': 0.3,'y': 0.4}
+
+
+        TextInputO:
+            id: o1
+            pos_hint: {'x': 0.6,'y': 0.4}
+
+        ImageYN:
+            id: i1
+            pos_hint: {'x': 0.7,'y': 0.4}
+
+
+        LabelP:
+            id: p2
+            pos_hint: {'x': 0.3,'y': 0.33}
+
+        TextInputO:
+            id: o2
+            pos_hint: {'x': 0.6,'y': 0.33}
+
+        ImageYN:
+            id: i2
+            pos_hint: {'x': 0.7,'y': 0.33}
+
+
+        LabelP:
+            id: p3
+            pos_hint: {'x': 0.3,'y': 0.26}
+
+        TextInputO:
+            id: o3
+            pos_hint: {'x': 0.6,'y': 0.26}
+
+        ImageYN:
+            id: i3
+            pos_hint: {'x': 0.7,'y': 0.26}
+
+
+        LabelP:
+            id: p4
+            pos_hint: {'x': 0.3,'y': 0.19}
+
+        TextInputO:
+            id: o4
+            pos_hint: {'x': 0.6,'y': 0.19}
+
+        ImageYN:
+            id: i4
+            pos_hint: {'x': 0.7,'y': 0.19}
+
+
+        LabelP:
+            id: p5
+            pos_hint: {'x': 0.3,'y': 0.12}
+
+        TextInputO:
+            id: o5
+            pos_hint: {'x': 0.6,'y': 0.12}
+
+        ImageYN:
+            id: i5
+            pos_hint: {'x': 0.7,'y': 0.12}
+
+
+        LabelP:
+            id: p6
+            pos_hint: {'x': 0.3,'y': 0.05}
+
+        TextInputO:
+            id: o6
+            pos_hint: {'x': 0.6,'y': 0.05}
+
+        ImageYN:
+            id: i6
+            pos_hint: {'x': 0.7,'y': 0.05}
+
+

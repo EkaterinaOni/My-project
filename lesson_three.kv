@@ -1,0 +1,141 @@
+<Lesson_three>:
+
+    BoxLayout:
+        orientation:'vertical'
+        MDToolbar:
+            id : toolbar
+            md_bg_color: .2, .2, .2, 1
+            specific_text_color: 1, 1, 1, 1
+            MDRoundFlatButton:
+                id:exit
+                pos_hint: {"center_x": .9, "center_y": .54}
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'mainscreen'
+                    root.stop_video()
+                    root.clean()
+
+
+        ScreenManager:
+            id: sm
+            Screen:
+                id: plus
+                name: 'screen_one'
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: [10,5,-10,5]
+                    spacing: 5
+                    MDFillRoundFlatButton:
+                        id: play_video
+                        pos_hint: {'x': 0.4,'y': 0.68}
+                        on_press:
+                            root.play_video()
+                    Video:
+                        id: video
+                        source: 'video/urok3.mp4'
+                        size_hint: 0.7, 0.7
+                        pos_hint: {'x': 0.1,'y': 0.5}
+                        state: 'stop'
+
+                    MDFillRoundFlatIconButton:
+                        id: next_one
+                        icon:"arrow-down"
+                        on_press:
+                            sm.transition.direction = 'up'
+                            sm.current = 'screen_two'
+                            root.stop_video()
+            Screen:
+                name: 'screen_two'
+                MDFillRoundFlatIconButton:
+                    id: next_up_2
+                    icon:"arrow-up"
+                    pos_hint: {'x': 0.02,'y': 0.9}
+                    on_press:
+                        sm.transition.direction = 'down'
+                        sm.current = 'screen_one'
+                Button:
+                    id: prim
+                    pos_hint: {'x': 0.1,'y': 0.77}
+                    size_hint: 0.2, 0.07
+                    on_press: root.primer()
+                Button:
+                    id: prov
+                    pos_hint: {'x': 0.7,'y': 0.77}
+                    size_hint: 0.2, 0.07
+                    on_press: root.proverka()
+                LabelP:
+                    id: p1
+                    pos_hint: {'x': 0.3,'y': 0.7}
+
+                TextInputO:
+                    id: o1
+                    pos_hint: {'x': 0.6,'y': 0.7}
+
+                ImageYN:
+                    id: i1
+                    pos_hint: {'x': 0.7,'y': 0.7}
+
+
+                LabelP:
+                    id: p2
+                    pos_hint: {'x': 0.3,'y': 0.63}
+
+                TextInputO:
+                    id: o2
+                    pos_hint: {'x': 0.6,'y': 0.63}
+
+                ImageYN:
+                    id: i2
+                    pos_hint: {'x': 0.7,'y': 0.63}
+
+
+                LabelP:
+                    id: p3
+                    pos_hint: {'x': 0.3,'y': 0.56}
+
+                TextInputO:
+                    id: o3
+                    pos_hint: {'x': 0.6,'y': 0.56}
+
+                ImageYN:
+                    id: i3
+                    pos_hint: {'x': 0.7,'y': 0.56}
+
+
+                LabelP:
+                    id: p4
+                    pos_hint: {'x': 0.3,'y': 0.49}
+
+                TextInputO:
+                    id: o4
+                    pos_hint: {'x': 0.6,'y': 0.49}
+
+                ImageYN:
+                    id: i4
+                    pos_hint: {'x': 0.7,'y': 0.49}
+
+
+                LabelP:
+                    id: p5
+                    pos_hint: {'x': 0.3,'y': 0.42}
+
+                TextInputO:
+                    id: o5
+                    pos_hint: {'x': 0.6,'y': 0.42}
+
+                ImageYN:
+                    id: i5
+                    pos_hint: {'x': 0.7,'y': 0.42}
+
+
+                LabelP:
+                    id: p6
+                    pos_hint: {'x': 0.3,'y': 0.35}
+
+                TextInputO:
+                    id: o6
+                    pos_hint: {'x': 0.6,'y': 0.35}
+
+                ImageYN:
+                    id: i6
+                    pos_hint: {'x': 0.7,'y': 0.35}

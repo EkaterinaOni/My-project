@@ -1,0 +1,179 @@
+<Lesson_six>
+    BoxLayout:
+        orientation:'vertical'
+
+        MDToolbar:
+            id : toolbar
+            type: "top"
+            md_bg_color: .2, .2, .2, 1
+            specific_text_color: 1, 1, 1, 1
+            MDRoundFlatButton:
+                id:exit
+                pos_hint: {"center_x": .9, "center_y": .54}
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'mainscreen'
+                    root.stop()
+
+
+        MDBottomNavigation:
+            panel_color: .2, .2, .2, 1
+
+            MDBottomNavigationItem:
+                id: theory
+                name: 'screen 1'
+                icon: 'teach'
+                Screen:
+                    MDLabel:
+                        id: les_one
+                        halign: "center"
+                        font_size: 25
+                        pos_hint: {'x':0.01, 'y': 0.3}
+                    Image:
+                        source: "Image/urok6.jpg"
+                        pos_hint: {'x': 0.1,'y': 0.1}
+                        size_hint: .3, .6
+                    Image:
+                        source: "Image/urok6_1.jpg"
+                        pos_hint: {'x': 0.5,'y': 0.1}
+                        size_hint: .3, .6
+                    MDLabel:
+                        id: lb
+                        font_size: 25
+                        halign: "justify"
+                        pos_hint: {'x':0.01, 'y': -0.3}
+                    MDFillRoundFlatButton:
+                        id: sorob
+                        pos_hint: {'x': 0.02,'y': 0.03}
+                        on_press:
+                            root.manager.transition.direction = 'up'
+                            root.manager.current = 'soroban'
+                            root.stop()
+                    MDIconButton:
+                        id: button_sound
+                        icon:  "volume-high"
+                        user_font_size: "48sp"
+                        pos_hint: {'x': 0.9, 'y': 0.9}
+                        on_press: root.play_sound()
+            MDBottomNavigationItem:
+                id: zadania
+                name: 'screen 2'
+                icon: 'note'
+
+                FloatLayout:
+                    Image:
+                        source: "Image/VvodUrok.png"
+                        size_hint: 1.2, 1.2
+                        pos_hint: {'x': -0.1, 'y': -0.1}
+                        allow_stretch: True #image in fullscreen
+                        keep_ratio: False
+                    Screen:
+                        id: screen_1
+                        name: 'Screen one'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            padding: [10,0,10,50]
+                            spacing: 50
+                            Label:
+                                id: ques1
+                                markup: True
+                                pos_hint: {'x': 0.01, 'y': 0.45}
+                                font_size: 27
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                padding: [10,0,10,50]
+                                spacing: 50
+                                ButtonAnswerP:
+                                    source: "Image/25.jpg"
+                                    size_hint: 0.02, 1.7
+                                    on_press: root.answer1_pressed()
+                                ButtonAnswerP:
+                                    source: "Image/34.jpg"
+                                    size_hint: 0.02, 1.7
+                                    on_press: root.answer2_pressed()
+                                ButtonAnswerP:
+                                    source: "Image/24.jpg"
+                                    size_hint: 0.02, 1.7
+                                    on_press: root.answer3_pressed()
+                                ButtonAnswerP:
+                                    source: "Image/54.jpg"
+                                    size_hint: 0.02, 1.7
+                                    on_press: root.answer4_pressed()
+                            Button:
+                                id: propusk1
+                                size_hint: 1, 0.3
+                                on_press: root.propusk()
+                    Screen:
+                        id: screen_2
+                        name: 'Screen two'
+                        opacity: 0
+                        BoxLayout:
+                            orientation: 'vertical'
+                            padding: [10,0,10,50]
+                            spacing: 50
+                            Label:
+                                id: ques2
+                                markup: True
+                                pos_hint: {'x': 0.01, 'y': 0.45}
+                                font_size: 27
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                padding: [10,0,10,50]
+                                spacing: 50
+                                ButtonAnswerP:
+                                    source: "Image/51.jpg"
+                                    size_hint: 0.02, 1.7
+                                    on_press: root.answer1_pressed()
+                                ButtonAnswerP:
+                                    source: "Image/50.jpg"
+                                    size_hint: 0.02, 1.7
+                                    on_press: root.answer2_pressed()
+                                ButtonAnswerP:
+                                    source: "Image/45.jpg"
+                                    size_hint: 0.02, 1.7
+                                    on_press: root.answer3_pressed()
+                                ButtonAnswerP:
+                                    source: "Image/55.jpg"
+                                    size_hint: 0.02, 1.7
+                                    on_press: root.answer4_pressed()
+                            Button:
+                                id: propusk2
+                                size_hint: 1, 0.3
+                                on_press: root.propusk()
+                    Screen:
+                        id: screen_3
+                        name: 'Screen three'
+                        opacity: 0
+                        BoxLayout:
+                            orientation: 'vertical'
+                            padding: [10,0,10,50]
+                            spacing: 50
+                            Label:
+                                id: ques3
+                                markup: True
+                                pos_hint: {'x': 0.01, 'y': 0.45}
+                                font_size: 27
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                padding: [10,0,10,50]
+                                spacing: 50
+                                ButtonAnswerP:
+                                    source: "Image/12.jpg"
+                                    size_hint: 0.02, 1.7
+                                    on_press: root.answer1_pressed()
+                                ButtonAnswerP:
+                                    source: "Image/97.jpg"
+                                    size_hint: 0.02, 1.7
+                                    on_press: root.answer2_pressed()
+                                ButtonAnswerP:
+                                    source: "Image/17.jpg"
+                                    size_hint: 0.02, 1.7
+                                    on_press: root.answer3_pressed()
+                                ButtonAnswerP:
+                                    source: "Image/54.jpg"
+                                    size_hint: 0.02, 1.7
+                                    on_press: root.answer4_pressed()
+                            Button:
+                                id: propusk3
+                                size_hint: 1, 0.3
+                                on_press: root.propusk()

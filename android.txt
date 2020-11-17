@@ -1,0 +1,3 @@
+title=Mental
+author=Katya
+orientation=landscape

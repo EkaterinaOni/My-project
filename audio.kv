@@ -1,0 +1,136 @@
+<LabelN@MDLabel>
+    font_size:30
+    halign: "center"
+<TextInputR@TextInput>
+    font_size: 30
+    size_hint: 0.1, 0.7
+    halign: 'center'
+    multiline: False
+    input_filter: "int"
+<ImagePR@Image>
+    size_hint: 0.8,0.8
+    opacity: 0
+
+<Audio_tren>
+    FloatLayout:
+        Spinner:
+            id: list
+            size_hint: None, None
+            size: 400, 50
+            pos_hint:{'center_x':.5, 'top': 1}
+        MDRoundFlatButton:
+            id:help_prav
+            pos_hint: {"center_x": .9, "center_y": .95}
+            md_bg_color: 0, 0, 1, 0.5
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'help'
+                root.clean()
+                root.stop_audio()
+        MDRoundFlatButton:
+            id:exit_main
+            pos_hint: {"center_x": .12, "center_y": .95}
+            md_bg_color: 0, 0, 1, 0.5
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'mainscreen'
+                root.clean()
+                root.stop_audio()
+        MDLabel:
+            id: lb
+            halign: "center"
+            font_size: 20
+            color: 1,0.4,0.5,1
+            size_hint: 0.3, 0.1
+            pos_hint: {'x': 0.35,'y': 0.73}
+
+        MDFillRoundFlatButton:
+            id: beg
+            font_size: 24
+            pos_hint: {'x': 0.1,'y': 0.6}
+            size_hint: 0.2, 0.07
+            on_press: root.vibor_dic(list.text)
+
+        MDFillRoundFlatButton:
+            id: prov
+            font_size: 24
+            pos_hint: {'x': 0.4,'y': 0.6}
+            size_hint: 0.2, 0.07
+            disabled: True
+            on_press: root.proverka()
+
+        MDFillRoundFlatButton:
+            id: cl
+            font_size: 24
+            pos_hint: {'x': 0.7,'y': 0.6}
+            size_hint: 0.2, 0.07
+            on_press: root.clean()
+
+        GridLayout:
+            id: gr
+            rows: 3
+            cols: 10
+            pos_hint: {'x': 0,'y':0.2}
+            size_hint: 1, 0.3
+            LabelN:
+                text: "1"
+            LabelN:
+                text: "2"
+            LabelN:
+                text: "3"
+            LabelN:
+                text: "4"
+            LabelN:
+                text: "5"
+            LabelN:
+                text: "6"
+            LabelN:
+                text: "7"
+            LabelN:
+                text: "8"
+            LabelN:
+                text: "9"
+            LabelN:
+                text: "10"
+
+            TextInputR:
+                id: r1
+            TextInputR:
+                id: r2
+            TextInputR:
+                id: r3
+            TextInputR:
+                id: r4
+            TextInputR:
+                id: r5
+            TextInputR:
+                id: r6
+            TextInputR:
+                id: r7
+            TextInputR:
+                id: r8
+            TextInputR:
+                id: r9
+            TextInputR:
+                id: r10
+
+            ImagePR:
+                id: im1
+            ImagePR:
+                id: im2
+            ImagePR:
+                id: im3
+            ImagePR:
+                id: im4
+            ImagePR:
+                id: im5
+            ImagePR:
+                id: im6
+            ImagePR:
+                id: im7
+            ImagePR:
+                id: im8
+            ImagePR:
+                id: im9
+            ImagePR:
+                id: im10

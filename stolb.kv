@@ -1,0 +1,202 @@
+<Stolb>
+    BoxLayout:
+        orientation: 'vertical'
+        MDToolbar:
+            id: title_stolb
+            pos_hint: {"top" :1}
+            MDRoundFlatButton:
+                id:exit
+                pos_hint: {'x': -0.1,'y': 0.27}
+                md_bg_color: 0, 0, 1, 0.5
+                on_press:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'mainscreen'
+                    root.resetForm()
+
+        Screen:
+            MDLabel:
+                id: success
+                pos_hint: {'x': 0.6,'y': 0.33}
+                color: 0, 1, 0, 1
+                font_size: 25
+                opacity: 0
+
+            MDLabel:
+                id: fail
+                pos_hint: {'x': 0.6,'y': 0.33}
+                color: 1, 0, 0, 1
+                opacity: 0
+
+            MDLabel:
+                id: odnozn   # Однозначные
+                color: 1,0.4,0.5,1
+                size_hint: 0.2, 0.05
+                pos_hint: {'x': 0.05,'y': 0.9}
+                halign: 'left'
+                font_size: 18
+
+            ToggleButton:
+                id: odn
+                state: 'down'
+                group: 'razryd'
+                size_hint: 0.02, 0.02
+                pos_hint: {'x': 0.02,'y': 0.92}
+
+            MDLabel:
+                id: dvuznach   # Двузначные
+                color: 1,0.4,0.5,1
+                size_hint: 0.2, 0.05
+                pos_hint: {'x': 0.05,'y': 0.8}
+                halign: 'left'
+                font_size: 18
+
+            ToggleButton:
+                id: dvuz
+                group: 'razryd'
+                size_hint: 0.02, 0.02
+                pos_hint: {'x': 0.02,'y': 0.82}
+
+
+            Image:
+                source: "Image/line.png"
+                size_hint: 0.25, 0.1
+                pos_hint: {'x': 0.01, 'y': 0.73}
+            LabelUp:
+                id: make
+                pos_hint: {'x': 0.75,'y': 0.905}
+
+            ProgressBar:
+                id: makeb
+                pos_hint: {'x': 0.75,'y': 0.89}
+                size_hint: 0.2, 0.05
+
+            MDLabel:
+                id: straight_lower   # Прямой счет на нижних косточках
+                color: 0, 0, 0, 1
+                size_hint: 0.2, 0.05
+                pos_hint: {'x': 0.05,'y': 0.7}
+                halign: 'left'
+                font_size: 18
+
+            ToggleButton:
+                id: straight_lower_tog
+                state: 'down'
+                group: 'stolb'
+                size_hint: 0.02, 0.02
+                pos_hint: {'x': 0.02,'y': 0.72}
+
+            MDLabel:
+                id: straight_all # Прямой счет на всех косточках
+                color: 0, 0, 0, 1
+                size_hint: 0.2, 0.05
+                pos_hint: {'x': 0.05,'y': 0.6}
+                halign: 'left'
+                #italic: True
+                #bold: True
+                font_size: 18
+
+            ToggleButton:
+                id: straight_all_tog
+                group: 'stolb'
+                size_hint: 0.02, 0.02
+                pos_hint: {'x': 0.02,'y': 0.62}
+
+            MDLabel:
+                id: young_plus # Младшие товарищи +
+                color: 0, 0, 0, 1
+                size_hint: 0.2, 0.05
+                pos_hint: {'x': 0.05,'y': 0.5}
+                halign: 'left'
+                #italic: True
+                #bold: True
+                font_size: 18
+
+            ToggleButton:
+                id: young_plus_tog
+                group: 'stolb'
+                size_hint: 0.02, 0.02
+                pos_hint: {'x': 0.02,'y': 0.52}
+
+            MDLabel:
+                id: young_minus # Младшие товарищи -
+                color: 0, 0, 0, 1
+                size_hint: 0.2, 0.05
+                pos_hint: {'x': 0.05,'y': 0.4}
+                halign: 'left'
+                #italic: True
+                #bold: True
+                font_size: 18
+
+            ToggleButton:
+                id: young_minus_tog
+                group: 'stolb'
+                size_hint: 0.02, 0.02
+                pos_hint: {'x': 0.02,'y': 0.42}
+
+            MDFillRoundFlatIconButton:
+                id: begin
+                icon: 'arrow-right-drop-circle-outline'
+                pos_hint: {'x': 0.02,'y': 0.30}
+                size_hint: 0.2, 0.07
+                on_press: root.begin_stolb()
+            MDCard:
+                size_hint: .4, .58
+                pos_hint: {"center_x": .7, "center_y": .5}
+                BoxLayout:
+                    orientation: 'vertical'
+                    MDLabel:
+                        id: num0
+                        font_size: 44
+                        halign: 'center'
+                        size_hint: 1, 0.1
+                    MDLabel:
+                        id: num1
+                        halign: 'center'
+                        font_size: 44
+                        size_hint: 1, 0.1
+                    MDLabel:
+                        id: num2
+                        halign: 'center'
+                        font_size: 44
+                        size_hint: 1, 0.1
+                    MDLabel:
+                        id: num3
+                        halign: 'center'
+                        font_size: 44
+                        size_hint: 1, 0.1
+                    MDLabel:
+                        id: num4
+                        halign: 'center'
+                        font_size: 44
+                        size_hint: 1, 0.1
+            MDTextField:
+                id: my_answer
+                size_hint: 0.3, None
+                text_size: 24
+                pos_hint: {"center_x": 0.65, "center_y": 0.15}
+                line_color_focus: 0,0,0,.7
+                #on_text_validate: root.on_enter()
+            MDIconButton:
+                id: prov
+                opacity: 0
+                icon: "arrow-right-bold"
+                user_font_size: "64sp"
+                pos_hint: {"center_x": 0.88, "center_y": 0.15}
+                on_press: root.prov()
+            MDFillRoundFlatButton:
+                id: help
+                size_hint: 0.4, 0.05
+                pos_hint: {"center_x": 0.7, "center_y": 0.05}
+                on_press: root.help()
+
+    MDRoundFlatButton:
+        id:help_prav
+        halign: 'left'
+        pos_hint: {"center_x": .7, "center_y": .956}
+        md_bg_color: 0, 0, 1, 0.5
+        on_press:
+            root.manager.transition.direction = 'left'
+            root.manager.current = 'help'
+            root.resetForm()
+
+
