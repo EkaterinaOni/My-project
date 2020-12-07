@@ -21,7 +21,7 @@ class Lesson_four(Screen):
 
     def proverka(self):
         self.flag = True
-
+        self.k = 0
         id_i_list = ['i1', 'i2', 'i3', 'i4', 'i5', 'i6']
         id_o_list = ['o1', 'o2', 'o3', 'o4', 'o5', 'o6']
 
@@ -71,7 +71,7 @@ class Lesson_four(Screen):
                 self.k = self.k + 1
             else:
                 self.ids.i6.source = "Image/no.png"
-
+        print('K======', self.k)
         if self.k == 6:
             if Login.urok < 4:
                 Login.urok = 4

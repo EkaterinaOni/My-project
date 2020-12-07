@@ -96,7 +96,10 @@
             orientation: 'horizontal'
             Button:
                 id: bk
-                on_release: root.vih()
+                on_press:
+                    app.root.transition.direction = 'right'
+                    app.root.current = 'mainscreen'
+                    root.reshat()
             Button:
                 id: pr
                 on_release: root.reshat()
@@ -245,7 +248,7 @@ Button:
             pos_hint: {'x': -0.1, 'y': -0.1}
             allow_stretch: True #image in fullscreen
             keep_ratio: False
-        BoxLayout
+        BoxLayout:
             id: login_layout
             orientation: 'vertical'
             padding: [10,50,10,50]
@@ -469,9 +472,8 @@ Button:
             text_color: 0,0,0,1
             md_bg_color: 0, 0, 1, 0.25
             on_press:
-                root.manager.transition.direction = 'right'
-                root.manager.current = 'first'
                 root.exit_func()
+                app.stop()
         MDFlatButton:
             id: bn_clear
             pos_hint: {'x': 0.05, 'y': 0.94}
@@ -479,8 +481,7 @@ Button:
             text_color: 0,0,0,1
             md_bg_color: 0, 0, 1, 0.25
             on_press:
-#                root.manager.current = 'mainscreen'
-                root.clearprogress()
+                root.show_alert_dialog()
 
     MDIcon:
         icon: "account"
@@ -561,9 +562,8 @@ Button:
             focus: True
             font_size: 130
             text: ''
-            size_hint: 0.2, 0.25
+            size_hint: 0.16, 0.19
             pos_hint: {'x': 0.1,'y': 0.5}
-            on_text_validate:
             on_text_validate:
                 root.number()
                 root.validate()

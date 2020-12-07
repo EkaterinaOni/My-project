@@ -7,7 +7,11 @@ Window.fullscreen = True
 import sqlite3
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
+from kivy.uix.label import Label
 from kivy.uix.image import Image
+from kivy.uix.popup import Popup
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton
 from kivy.uix.behaviors import ButtonBehavior
 from database import Login, Registration
 from soroban import Soroban
@@ -28,7 +32,9 @@ from lesson_nine import Lesson_nine
 class ImageButton(ButtonBehavior, Image):
 	pass
 
+
 class MainScreen(Screen):
+    dialog = None
     def __init__(self, *args, **kwargs):
         super(MainScreen, self).__init__(*args, **kwargs)
         self.ids.uroki.text = '[color=0000ff]Уроки[/color]'
@@ -59,7 +65,26 @@ class MainScreen(Screen):
         conn.close()
         print(Login.progress)
 
-    def clearprogress(self):
+    def show_alert_dialog(self):
+        if not self.dialog:
+            self.dialog = MDDialog(
+                title="Предупреждение!",
+                type="custom",
+                text="Вы уверены, что хотите сбросить прогресс?",
+                buttons=[
+                    MDFlatButton(
+                        text="Сбросить", on_release=self.clearprogress
+                    ),
+                    MDFlatButton(
+                        text="Отмена", on_release=self.closeDialog
+                    ),
+                ],
+            )
+        self.dialog.set_normal_height()
+        self.dialog.open()
+
+    def clearprogress(self, inst):
+        print("Сброс")
         Login.urok = 0
         Login.progress = 0
         conn = sqlite3.connect("Pupil.db")
@@ -68,15 +93,12 @@ class MainScreen(Screen):
                     (Login.urok, Login.progress, Login.id))
         conn.commit()
         conn.close()
-        self.pars_urok(str(Login.urok))
-        self.pars_progress(str(Login.progress))
-        print(Login.progress)
+        self.manager.get_screen('mainscreen').ids.urok_bd.text = 'Начните с Вводного урока'
+        self.manager.get_screen('mainscreen').ids.progress_bd.text = 'Вы правильно выполнили 0 заданий'
+        self.dialog.dismiss()
 
-    def pars_urok(self, text):
-        self.manager.get_screen('mainscreen').ids.urok_bd.text = 'Вы закончили на Уроке №' + text
-
-    def pars_progress(self, text):
-        self.manager.get_screen('mainscreen').ids.progress_bd.text = 'Вы правильно выполнили ' + text + " заданий"
+    def closeDialog(self, inst):
+        self.dialog.dismiss()
 
 class Introductory_lesson(Screen):
     dialog = None
@@ -209,11 +231,7 @@ class First(Screen):
         super(First, self).__init__(*args, **kwargs)
         self.ids.button_input.text = 'Вход'
         self.ids.Register.text = 'Регистрация'
-#
-# def user_name_rew(a):
-#     global name_user
-#     name_user = a
-#     return name_user
+
 
 class LoginApp(MDApp):
 

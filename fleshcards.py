@@ -121,8 +121,8 @@ class Prodol(Popup):
 
     def reshat(self):
         self.dismiss()
-    def vih(self):
-        self.manager.current = 'mainscreen'
+    # def vih(self):
+    #     self.manager.current = 'mainscreen'
 
 
 class Flashcards(Screen):

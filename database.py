@@ -38,25 +38,22 @@ class Login(Screen):
             )
         self.dialog.open()
 
-    def pars(self, text):
-        self.manager.get_screen('mainscreen').ids.user_name.text = 'Привет, ' + text
-
-    def pars_urok(self, text):
-        if text == '0':
+    def pars(self, text1, text2, text3):
+        self.manager.get_screen('mainscreen').ids.user_name.text = 'Привет, ' + text1
+        if text2 == '0':
             self.manager.get_screen('mainscreen').ids.urok_bd.text = 'Начните с Вводного урока'
         else:
-            self.manager.get_screen('mainscreen').ids.urok_bd.text = 'Вы закончили на Уроке №' + text
-
-    def pars_progress(self, text):
-        a1 = [0,5,6,7,8,9]
+            self.manager.get_screen('mainscreen').ids.urok_bd.text = 'Вы закончили на Уроке №' + text2
+        a1 = [0, 5, 6, 7, 8, 9]
         a2 = [1]
-        a3 = [2,3,4]
-        if int(text) % 10 in a1:
-            self.manager.get_screen('mainscreen').ids.progress_bd.text = 'Вы правильно выполнили ' + text + " заданий"
-        elif int(text) % 10 in a2:
-            self.manager.get_screen('mainscreen').ids.progress_bd.text = 'Вы правильно выполнили ' + text + " задание"
-        elif int(text) % 10 in a3:
-            self.manager.get_screen('mainscreen').ids.progress_bd.text = 'Вы правильно выполнили ' + text + " задания"
+        a3 = [2, 3, 4]
+        if int(text3) % 10 in a1:
+            self.manager.get_screen('mainscreen').ids.progress_bd.text = 'Вы правильно выполнили ' + text3 + " заданий"
+        elif int(text3) % 10 in a2:
+            self.manager.get_screen('mainscreen').ids.progress_bd.text = 'Вы правильно выполнили ' + text3 + " задание"
+        elif int(text3) % 10 in a3:
+            self.manager.get_screen('mainscreen').ids.progress_bd.text = 'Вы правильно выполнили ' + text3 + " задания"
+
 
     def do_login(self, loginText, passwordText):
         self.resetForm()
@@ -81,9 +78,7 @@ class Login(Screen):
                 Login.urok = one_result[3]
                 Login.progress = one_result[4]
                 print(Login.urok)
-                self.pars(one_result[1])
-                self.pars_urok(str(one_result[3]))
-                self.pars_progress(str(one_result[4]))
+                self.pars(one_result[1],str(one_result[3]),str(one_result[4]))
                 self.manager.current = 'mainscreen'
                 print(one_result)
                 conn.commit()
@@ -107,8 +102,8 @@ class Registration(Screen):
 
     def resetForm(self):
         self.ids['login'].text = ""
-        self.ids['password_label'].text = ""
-        self.ids['password_repeat'].text = ""
+        self.ids['password_one'].text = ""
+        self.ids['password_rep'].text = ""
 
     def insert_user(self, l, p, p_rep):
 
@@ -127,9 +122,17 @@ class Registration(Screen):
             if l != '' and p != '' and p == p_rep:
                 print('+')
                 params = (l, p, 0, 0)
-                cur.execute("INSERT INTO users VALUES (NULL, ?, ?, ?, ?)", params)
+                cur.execute("SELECT * FROM users WHERE login=? and password=?", (l, p,))
+                one_result = cur.fetchone()  # результат поиска из базы данных
+                if one_result:
+                    self.resetForm()
+                    self.show_alert_dialog(3);
+                    return
+                else:
+                    cur.execute("INSERT INTO users VALUES (NULL, ?, ?, ?, ?)", params)
                 conn.commit()
             conn.close()
+            self.resetForm()
             self.manager.current = 'first'
 
     def show_alert_dialog(self, n):
@@ -146,4 +149,6 @@ class Registration(Screen):
             )
         if n == 2:
             self.dialog.text='Пароли не совпадают, попробуйте ввести еще раз'
+        if n == 3:
+            self.dialog.text = 'Такой пользователь уже существует'
         self.dialog.open()

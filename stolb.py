@@ -23,12 +23,12 @@ l4=[[0,1,2,3,4,5,6,7,8,9],[0,1,2,3,4,5,6,7,8,-1],[0,1,2,3,4,5,6,7,-1,-2],[0,1,2,
     [0,5,1,-1,-2,-3,-4],[0,1,2,3,4,-1,-2,-3,-4,-5],[0,1,2,3,-1,-2,-3,-4,-5,-6],
     [0,1,2,-1,-2,-3,-4,-5,-6,-7],[0,1,-1,-2,-3,-4,-5,-6,-7,-8],[0,-1,-2,-3,-4,-5,-6,-7,-8,-9]]
 
-
-
 # Старшие товарищи
 
 class Stolb(Screen):
     dialog = None
+    rez_stolb = 0
+    flag = True
     def __init__(self, *args, **kwargs):
         super(Stolb, self).__init__(*args, **kwargs)
         self.ids.title_stolb.title = 'Тренажер Столбцы'
@@ -39,7 +39,6 @@ class Stolb(Screen):
         self.ids.my_answer.hint_text = 'Введите ответ'
         self.ids.my_answer.helper_text= "Ошибка"
         self.ids.prov.text = "Проверка"
-        self.ids.help.text = "Посмотреть ответ"
         self.ids.exit.text = "Вернуться на главную страницу"
         self.ids.help_prav.text = "Инструкция"
         self.ids.straight_lower.text = "Прямой счет на нижних косточках"
@@ -49,8 +48,7 @@ class Stolb(Screen):
         self.ids.make.text = "Правильно 0 из 10"
         self.ids.success.text = "Поздравляю!"
         self.ids.fail.text = "Неправильно("
-    rez_stolb = 0
-    flag = True
+
 
     def resetForm(self):
         num_list = ['num0', 'num1', 'num2', 'num3', 'num4']
@@ -265,19 +263,15 @@ class Stolb(Screen):
             else:
                 self.ids.num4.text = '+' + str
 
-    def help(self):
-        self.ids.my_answer.text = ''
-        Stolb.flag = True
-        print(Stolb.rez_stolb)
-        if not self.dialog:
-            self.dialog = MDDialog(
-                title='Ответ',
-                text = str(Stolb.rez_stolb),
-                buttons=[
-                    MDFlatButton(
-                        text="CANCEL"
-                    )
-                ],
-            )
-        self.dialog.open()
 
+    def validate(self):
+        status = 0 <= int(self.ids.my_answer.text) <= 99
+        if not status:
+            self.ids.my_answer.text = ''
+            dialog = MDDialog(
+                title = 'Предупреждение!',
+                text='Введите число от 0 до 99',
+                size_hint = (None, None),
+                size = (300, 200),
+            )
+            dialog.open()
